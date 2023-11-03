@@ -418,9 +418,9 @@ function seleccionarOpcion(){
      return $opcion;
 }
 
-function cargarPartidas($datosPartida){
+// function cargarPartidas($datosPartida){
     
-    $partidasGuardadas=[];
-    $n=cont($partidasGuardadas);
+//     $partidasGuardadas=[];
+//     $n=cont($partidasGuardadas);
     
-}
+// }

@@ -39,25 +39,25 @@ function cargarColeccionPalabras()
 //$funcion = mostrarPartida($numeroDePartida);
 //$partidas =  cargarPartidas();
 
-function mostrarPartida($numeroDePartida){
-    $partidas = cargarPartidas();
+// function mostrarPartida($numeroDePartida){
+//     $partidas = cargarPartidas();
 
-    if ($numeroDePartida > 0 && $numeroDePartida < count($partidas)){
+//     if ($numeroDePartida > 0 && $numeroDePartida < count($partidas)){
         
-        $partida = $partidas[$numeroDePartida - 1];
+//         $partida = $partidas[$numeroDePartida - 1];
     
-            echo "Partida: ".($numeroDePartida - 1)."\n";
-            echo "Usuario: ".$partida["jugador"]."\n";
-            echo "Palabra: ".$partida["palabraWordix"]."\n";
-            echo "Intentos: ".$partida["intentos"]."\n";
-            echo "Puntaje: ".$partida["puntaje"]."\n";
-            echo "---------------------------------\n";
+//             echo "Partida: ".($numeroDePartida - 1)."\n";
+//             echo "Usuario: ".$partida["jugador"]."\n";
+//             echo "Palabra: ".$partida["palabraWordix"]."\n";
+//             echo "Intentos: ".$partida["intentos"]."\n";
+//             echo "Puntaje: ".$partida["puntaje"]."\n";
+//             echo "---------------------------------\n";
     
 
-    } else {
-        echo "Error, esa partida no se ecuentra";
-    }
-}    
+//     } else {
+//         echo "Error, esa partida no se ecuentra";
+//     }
+// }    
 
 function cargarPartidas(){
     
@@ -122,6 +122,8 @@ function mostrarListadoPartidas()
 }
 
 
+
+
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
@@ -163,8 +165,10 @@ do {
             break;
         case 2:
             // Jugar al wordix con una palabra aleatoria
-
-
+            echo "Ingrese su usuario: ";
+            $usuario = trim(fgets(STDIN));
+            $palabraElegida = $coleccionPalabras[rand(0, $cantPalabras - 1)];
+            jugarWordix($palabraElegida, strtolower($usuario));
             break;
         case 3:
             //Mostrar una partida
