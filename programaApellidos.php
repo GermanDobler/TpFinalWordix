@@ -33,6 +33,52 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
+//echo "Ingrese numero de partida que desee ver: ";
+//$numeroDePartida = trim(fgets(STDIN));
+
+//$funcion = mostrarPartida($numeroDePartida);
+//$partidas =  cargarPartidas();
+
+function mostrarPartida($numeroDePartida){
+    $partidas = cargarPartidas();
+
+    if ($numeroDePartida > 0 && $numeroDePartida < count($partidas)){
+        
+        $partida = $partidas[$numeroDePartida - 1];
+    
+            echo "Partida: ".($numeroDePartida - 1)."\n";
+            echo "Usuario: ".$partida["jugador"]."\n";
+            echo "Palabra: ".$partida["palabraWordix"]."\n";
+            echo "Intentos: ".$partida["intentos"]."\n";
+            echo "Puntaje: ".$partida["puntaje"]."\n";
+            echo "---------------------------------\n";
+    
+
+    } else {
+        echo "Error, esa partida no se ecuentra";
+    }
+}    
+
+function cargarPartidas(){
+    
+    $coleccionPartidas=[];
+
+    
+    $coleccionPartidas[0] = ["palabraWordix"=> "QUESO" , "jugador" => "majo", "intentos"=> 0, "puntaje" => 0];
+    $coleccionPartidas[1] = ["palabraWordix"=> "CASAS" , "jugador" => "rudolf", "intentos"=> 3, "puntaje" => 14];
+    $coleccionPartidas[2] = ["palabraWordix"=> "QUESO" , "jugador" => "pink2000", "intentos"=> 6, "puntaje" => 10];
+    $coleccionPartidas[3] = ["palabraWordix"=> "PERRO" , "jugador" => "pedro12", "intentos"=> 3,"puntaje"=> 0];
+    $coleccionPartidas[4] = ["palabraWordix"=> "LETRA",  "jugador" => "nasus",  "intentos"=> 1, "puntaje"=> 0 ];
+    $coleccionPartidas[5] = ["palabraWordix" => "MUJER",  "jugador" => "dog123", "intentos" => 4, "puntaje"=> 0 ];
+    $coleccionPartidas[6] = ["palabraWordix" => "CASAS",  "jugador" => "rudolf", "intentos"=> 6, "puntaje"=> 0];
+    $coleccionPartidas[7] = ["palabraWordix" => "NADAR",  "jugador" => "nasus" , "intentos"=> 2 ,  "puntaje"=> 0];
+    $coleccionPartidas[8] = ["palabraWordix" => "PIANO",  "jugador" => "pedro12","intentos"=> 4,   "puntaje"=> 0];
+    $coleccionPartidas[9] = ["palabraWordix" => "LETRA",  "jugador" => "majo",   "intentos"=> 4,   "puntaje"=> 0];
+
+    return $coleccionPartidas;
+}
+
+
 
 /**
  * Obtiene una colección de partidas
