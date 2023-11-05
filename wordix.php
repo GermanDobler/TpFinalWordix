@@ -119,8 +119,9 @@ function escribirSegunEstado($texto, $estado)
     }
 }
 
-/**
- * ****COMPLETAR*****
+/** Da la bienvenida al usuario
+ * @param string $usuario
+ * @return //retorna vacio
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -133,7 +134,9 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ * Retorna true si cada caracter de la cadena es una letra del abcedario caso contrario retorna un false
+ * @param string $cadena
+ * @return boolean
  */
 function esPalabra($cadena)
 {
@@ -149,7 +152,9 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ * pide al usuario que ingrese una palabra de 5 letras y la retorna
+ * @param //vacio
+ * @return string
  */
 function leerPalabra5Letras()
 {
@@ -418,9 +423,3 @@ function seleccionarOpcion(){
      return $opcion;
 }
 
-// function cargarPartidas($datosPartida){
-    
-//     $partidasGuardadas=[];
-//     $n=cont($partidasGuardadas);
-    
-// }

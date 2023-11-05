@@ -33,8 +33,6 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
-//echo "Ingrese numero de partida que desee ver: ";
-//$numeroDePartida = trim(fgets(STDIN));
 
 //$funcion = mostrarPartida($numeroDePartida);
 //$partidas =  cargarPartidas();
@@ -57,7 +55,12 @@ function cargarColeccionPalabras()
 //     } else {
 //         echo "Error, esa partida no se ecuentra";
 //     }
-// }    
+// } 
+   
+/**
+ * Obtiene una colección de partidas
+ * @return string
+ */
 
 function cargarPartidas(){
     
@@ -172,6 +175,8 @@ do {
             break;
         case 3:
             //Mostrar una partida
+            echo "Ingrese numero de partida que desee ver: ";
+            $numeroDePartida = trim(fgets(STDIN)); 
 
             break;
         case 4:
@@ -187,6 +192,7 @@ do {
             break;
         case 7:
             //Agregar una palabra de 5 letras a Wordix
+
             break;
         case 8:
             //borrar consola 
