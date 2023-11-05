@@ -33,7 +33,26 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
+$coleccionPalabras = cargarColeccionPalabras();
 
+function agregarPalabra($coleccionPalabras,$palabraAAgregar){
+
+    if(strlen($palabraAAgregar) != 5){
+
+        echo "La palabra debe ser de 5 letras";
+    }else {
+        //verificar si la palabra no esta dentro del arreglo
+        if(!in_array($palabraAAgregar,$coleccionPalabras)){
+            //transforma la palabra en mayusculas
+            $palabraAAgregar = strtoupper($palabraAAgregar);
+            //agrega la palabra a la coleccion
+            array_push($coleccionPalabras);
+        }else {
+            echo "Esa palabra ya se encuentra en la coleecion";
+        }
+    }
+
+}
 
 
 
@@ -192,6 +211,11 @@ do {
             break;
         case 7:
             //Agregar una palabra de 5 letras a Wordix
+            echo "Ingrese palabra de 5 letras para agregar a la lista";
+            $palabraAAgregar = trim(fgets(STDIN));
+            agregarPalabra($coleccionPalabras,$palabraAAgregar);
+
+
 
             break;
         case 8:
