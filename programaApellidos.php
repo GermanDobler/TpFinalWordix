@@ -28,34 +28,33 @@ function cargarColeccionPalabras()
         "LETRA", "MARZO", "LUNES", "MANGO", "NADAR"
 
 
-        /* Agregar 5 palabras más: YA REALIZADO*/
+        
     ];
 
     return ($coleccionPalabras);
 }
 
-//$funcion = mostrarPartida($numeroDePartida);
-//$partidas =  cargarPartidas();
 
-// function mostrarPartida($numeroDePartida){
-//     $partidas = cargarPartidas();
 
-//     if ($numeroDePartida > 0 && $numeroDePartida < count($partidas)){
-        
-//         $partida = $partidas[$numeroDePartida - 1];
+
+ function mostrarPartida($numeroDePartida){
+   $partidas = cargarPartidas();
+
+   if ($numeroDePartida > 0 && $numeroDePartida < count($partidas)){    
+        $partida = $partidas[$numeroDePartida - 1];
     
-//             echo "Partida: ".($numeroDePartida - 1)."\n";
-//             echo "Usuario: ".$partida["jugador"]."\n";
-//             echo "Palabra: ".$partida["palabraWordix"]."\n";
-//             echo "Intentos: ".$partida["intentos"]."\n";
-//             echo "Puntaje: ".$partida["puntaje"]."\n";
-//             echo "---------------------------------\n";
+             echo "Partida: ".($numeroDePartida - 1)."\n";
+             echo "Usuario: ".$partida["jugador"]."\n";
+             echo "Palabra: ".$partida["palabraWordix"]."\n";
+             echo "Intentos: ".$partida["intentos"]."\n";
+             echo "Puntaje: ".$partida["puntaje"]."\n";
+             echo "---------------------------------\n";
     
 
-//     } else {
-//         echo "Error, esa partida no se ecuentra";
-//     }
-// } 
+    } else {
+       echo "Error, esa partida no se ecuentra";
+    }
+} 
    
 /**
  * Obtiene una colección de partidas
@@ -162,7 +161,7 @@ do {
                 $palabraElegida = $coleccionPalabras[$eleccion];
                 jugarWordix($palabraElegida, strtolower($usuario));
             } else {
-                echo "ERROR MOGOLICO\n";
+                echo "ERROR\n";
             }
 
             break;
@@ -176,7 +175,8 @@ do {
         case 3:
             //Mostrar una partida
             echo "Ingrese numero de partida que desee ver: ";
-            $numeroDePartida = trim(fgets(STDIN)); 
+            $numeroDePartida = trim(fgets(STDIN));
+            $mostrarPartidaElegida = mostrarPartida($numeroDePartida);
 
             break;
         case 4:
