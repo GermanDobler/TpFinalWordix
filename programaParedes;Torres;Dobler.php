@@ -8,7 +8,9 @@ include_once("wordix.php");
 /**************************************/
 
 /* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
-/* ****COMPLETAR***** */
+/*Martin Paredes* - legajo FAI-4997 - mail: mdep171@gmail.com - GitHub: tiinch00
+/*Matias Nicolas Torres* - legajo FAI-3921 - mail: matiasnicolastorres71@gmail.com - GitHub: MatiTorres18133
+/*German Dobler* - legajo 4955 - Mail: german.crack@hotmail.com - Github: GermanDobler */
 
 
 /**************************************/
@@ -53,16 +55,18 @@ function agregarPalabra($coleccionPalabras,$palabraAAgregar){
     }
 
 }
-
-
-
+//OPCION 3 SWITCH
+/**
+ * Muestra una partida seleccionada por el usuario
+ * @param $numeroDePartida
+ */
  function mostrarPartida($numeroDePartida){
    $partidas = cargarPartidas();
 
    if ($numeroDePartida > 0 && $numeroDePartida < count($partidas)){    
-        $partida = $partidas[$numeroDePartida - 1];
+        $partida = $partidas[$numeroDePartida -1];
     
-             echo "Partida: ".($numeroDePartida - 1)."\n";
+             echo "Partida: ".$numeroDePartida."\n";
              echo "Usuario: ".$partida["jugador"]."\n";
              echo "Palabra: ".$partida["palabraWordix"]."\n";
              echo "Intentos: ".$partida["intentos"]."\n";
@@ -73,6 +77,7 @@ function agregarPalabra($coleccionPalabras,$palabraAAgregar){
     } else {
        echo "Error, esa partida no se ecuentra";
     }
+    
 } 
    
 /**
@@ -195,7 +200,7 @@ do {
             //Mostrar una partida
             echo "Ingrese numero de partida que desee ver: ";
             $numeroDePartida = trim(fgets(STDIN));
-            $mostrarPartidaElegida = mostrarPartida($numeroDePartida);
+            mostrarPartida($numeroDePartida);
 
             break;
         case 4:
@@ -214,8 +219,6 @@ do {
             echo "Ingrese palabra de 5 letras para agregar a la lista";
             $palabraAAgregar = trim(fgets(STDIN));
             agregarPalabra($coleccionPalabras,$palabraAAgregar);
-
-
 
             break;
         case 8:
