@@ -16,7 +16,7 @@ include_once("wordix.php");
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
-
+//FUNCION 1
 /**
  * Obtiene una colección de palabras
  * @return array
@@ -43,7 +43,7 @@ $palabraAAgregar = leerPalabra5Letras();
  * @param $coleccionPalabras
  * @param $palabrasAAgregar
  */
-
+//FUNCION 7
 function agregarPalabra($coleccionPalabras,$palabraAAgregar){
 
         //verificar si la palabra no esta dentro del arreglo
@@ -57,7 +57,7 @@ function agregarPalabra($coleccionPalabras,$palabraAAgregar){
     }
 
 
-//OPCION 3 SWITCH
+//OPCION 3 SWITCH FUNCION 6
 /**
  * Muestra una partida seleccionada por el usuario
  * @param $numeroDePartida
@@ -81,7 +81,28 @@ function agregarPalabra($coleccionPalabras,$palabraAAgregar){
     }
     
 } 
+// FUNCION 10
+/**
+ * solicita el nombre del jugador. Se asegura que el nombre empieze con una letra y lo retorna en minuscula
+ * @param //vacio
+ * @return string
+ */
    
+ function solicitarJugador(){
+    echo "Ingrese nombre jugador: ";
+    $nombreJugador = trim(fgets(STDIN));
+    //verifica que el nombre empieze con una letra
+    if(ctype_alpha($nombreJugador[0])){
+        //si el nombre inicia con letra, lo transforma todo a minusculas
+        $nombreJugador = strtolower($nombreJugador);
+    }
+    
+    return $nombreJugador;
+
+ }
+
+
+//FUNCION 2
 /**
  * Obtiene una colección de partidas
  * @return string
