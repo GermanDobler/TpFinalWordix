@@ -105,7 +105,7 @@ function agregarPalabra($coleccionPalabras,$palabraAAgregar){
 //FUNCION 2
 /**
  * Obtiene una colección de partidas
- * @return string
+ * @return array
  */
 
 function cargarPartidas(){
@@ -127,6 +127,48 @@ function cargarPartidas(){
     return $coleccionPartidas;
 }
 
+
+/**
+ * Genera un array del jugador 
+ * @param vacio
+ * @return array
+ */
+
+function generarArrayInicial(){
+    $jugador = [
+        "jugador" => "",
+        "partidas" => 0,
+        "puntaje" => 0,
+        "victorias" => 0,
+        "intento1" => 0,
+        "intento2" => 0,
+        "intento3" => 0,
+        "intento4" => 0,
+        "intento5" => 0,
+        "intento6" => 0
+    ];
+
+    return $jugador;
+}
+
+
+/**
+ * Obtiene el Resumen del jugador
+ * @param array $partidas,
+ * @param string $nombreJugador, 
+ * @return array
+ */
+
+ function resumenJugador($coleccionPartidas , $nombreJugador){
+
+
+    $arrayJugador = generarArrayInicial();
+
+    foreach($coleccionPartidas as $partida){
+        
+    }
+
+ }
 
 
 /**
@@ -168,6 +210,8 @@ function mostrarListadoPartidas()
         echo "Puntaje: $value[puntaje]\n";
         echo "---------------------------------\n";
     }
+
+
 }
 
 
