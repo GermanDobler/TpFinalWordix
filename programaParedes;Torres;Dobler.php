@@ -128,7 +128,7 @@ function cargarPartidas(){
 }
 
 
-/**
+/**PUNTO 2 C
  * Genera un array del jugador 
  * @param vacio
  * @return array
@@ -153,6 +153,30 @@ function generarArrayInicial(){
 
 
 /**
+ * PUNTO 8
+ * retorna el indice de la primer partida ganada de un jugador
+ * @param string $nombreJugador
+ * @param array $coleccionPartida
+ * @return int
+ * 
+ */
+
+ function retornaPrimerPartidaGanada($nombreJugador, $coleccionPartida){
+
+            
+    for ($i=0; $i<$coleccionPartida; $i++){
+        if($coleccionPartida[$i]['usuario'] == $nombreJugador){
+            if($coleccionPartida[$i]['estado']=='Ganada'){
+                return $i;
+            }
+        }
+    }
+    return -1;
+
+ }
+
+
+/**PUNTO 9
  * Obtiene el Resumen del jugador
  * @param array $partidas,
  * @param string $nombreJugador, 
@@ -165,10 +189,46 @@ function generarArrayInicial(){
     $arrayJugador = generarArrayInicial();
 
     foreach($coleccionPartidas as $partida){
+        if($partida['usuario'] = $nombreJugador){
+            $arrayJugador['jugador'] = $nombreJugador;
+            $arrayJugador['partidas']=$partida['intentos'];
+            $arrayJugador['puntaje'] = $arrayJugador['puntaje'] + $partida['puntaje'];
+             
+         for($i=0; $i<$partida['intentos']; $i++){
+            
+            $arrayJugador['intento'+($i+1)] = $partida[$i]['puntaje'];
+         }
+        }
         
     }
 
+    return $arrayJugador;
+
  }
+
+
+/**
+ * PUNTO 11
+ * MUESTRA UNA COLECCION DE PARTIDAS ORDENADAS POR EL NOMBRE DEL JUGADOR Y POR PALABRA
+ * @param array $coleccionPartidas
+ * @return vacio
+ */
+function ordenaColeccion($coleccionPartidas){
+
+uasort($coleccionPartidas, 'comparacionPerzonalizada');
+print_r($coleccionPartidas);
+
+}
+
+
+/** 
+ * Funcuon de comparacion perzonalizada */ 
+function comparacionPerzonalizada($a,$b){
+
+    return strcasecmp($a['nombre'], $b['palabra']);
+}
+
+
 
 
 /**
