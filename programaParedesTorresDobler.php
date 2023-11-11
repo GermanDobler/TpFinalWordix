@@ -167,14 +167,14 @@ function generarArrayInicial(){
  */
 
  function retornaPrimerPartidaGanada($nombreJugador, $coleccionPartida){
-
-            
-    for ($i=0; $i<$coleccionPartida; $i++){
+    $contador = count($coleccionPartida);
+    for ($i=0; $i<$contador; $i++){
         if($coleccionPartida[$i]['usuario'] == $nombreJugador){
             if($coleccionPartida[$i]['estado']=='Ganada'){
                 return $i;
             }
         }
+        
     }
     return -1;
 
@@ -275,7 +275,7 @@ function mostrarListadoPartidas()
         echo "Puntaje: $value[puntaje]\n";
         echo "---------------------------------\n";
     }
-
+return $partidas;
 
 }
 
@@ -336,7 +336,12 @@ do {
 
             break;
         case 4:
-            //Mostrar la primer partida ganadora
+            //Mostrar primera partida ganada
+            echo "Ingrese nombre del jugador: ";
+            $nombreJugadorSeleccionado = trim(fgets(STDIN));
+            $partidas =  mostrarListadoPartidas();
+            $i = retornaPrimerPartidaGanada($nombreJugadorSeleccionado, $partidas);
+            print_r ($partidas[$i]);
             //...
             break;
         case 5:
