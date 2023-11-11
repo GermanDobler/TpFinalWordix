@@ -11,6 +11,7 @@ Puede ser utilizada por cualquier programador para incluir en sus programas.
 /**************************************/
 const CANT_INTENTOS = 6;
 
+
 /*
     disponible: letra que aún no fue utilizada para adivinar la palabra
     encontrada: letra descubierta en el lugar que corresponde

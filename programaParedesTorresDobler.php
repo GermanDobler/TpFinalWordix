@@ -119,12 +119,13 @@ function cargarPartidas(){
 
     
     $coleccionPartidas[0] = ["palabraWordix"=> "QUESO" , "jugador" => "majo", "intentos"=> 0, "puntaje" => 0];
+
     $coleccionPartidas[1] = ["palabraWordix"=> "CASAS" , "jugador" => "rudolf", "intentos"=> 3, "puntaje" => 14];
     $coleccionPartidas[2] = ["palabraWordix"=> "QUESO" , "jugador" => "pink2000", "intentos"=> 6, "puntaje" => 10];
     $coleccionPartidas[3] = ["palabraWordix"=> "PERRO" , "jugador" => "pedro12", "intentos"=> 3,"puntaje"=> 0];
     $coleccionPartidas[4] = ["palabraWordix"=> "LETRA",  "jugador" => "nasus",  "intentos"=> 1, "puntaje"=> 0 ];
     $coleccionPartidas[5] = ["palabraWordix" => "MUJER",  "jugador" => "dog123", "intentos" => 4, "puntaje"=> 0 ];
-    $coleccionPartidas[6] = ["palabraWordix" => "CASAS",  "jugador" => "rudolf", "intentos"=> 6, "puntaje"=> 0];
+    $coleccionPartidas[6] = ["palabraWordix" => "CASAS",  "jugador" => "rudolf", "intentos"=> 6, "puntaje"=> 5];
     $coleccionPartidas[7] = ["palabraWordix" => "NADAR",  "jugador" => "nasus" , "intentos"=> 2 ,  "puntaje"=> 0];
     $coleccionPartidas[8] = ["palabraWordix" => "PIANO",  "jugador" => "pedro12","intentos"=> 4,   "puntaje"=> 0];
     $coleccionPartidas[9] = ["palabraWordix" => "LETRA",  "jugador" => "majo",   "intentos"=> 4,   "puntaje"=> 0];
@@ -169,10 +170,10 @@ function generarArrayInicial(){
  function retornaPrimerPartidaGanada($nombreJugador, $coleccionPartida){
     $contador = count($coleccionPartida);
     for ($i=0; $i<$contador; $i++){
-        if($coleccionPartida[$i]['usuario'] == $nombreJugador){
-            if($coleccionPartida[$i]['estado']=='Ganada'){
-                return $i;
-            }
+        if($coleccionPartida[$i]['jugador'] == $nombreJugador){
+           if($coleccionPartida[$i]['puntaje'] > 0){
+            return $i;
+           }
         }
         
     }
@@ -194,7 +195,7 @@ function generarArrayInicial(){
     $arrayJugador = generarArrayInicial();
 
     foreach($coleccionPartidas as $partida){
-        if($partida['usuario'] = $nombreJugador){
+        
             $arrayJugador['jugador'] = $nombreJugador;
             $arrayJugador['partidas']=$partida['intentos'];
             $arrayJugador['puntaje'] = $arrayJugador['puntaje'] + $partida['puntaje'];
@@ -203,7 +204,7 @@ function generarArrayInicial(){
             
             $arrayJugador['intento'+($i+1)] = $partida[$i]['puntaje'];
          }
-        }
+    
         
     }
 
@@ -220,7 +221,7 @@ function generarArrayInicial(){
  */
 function ordenaColeccion($coleccionPartidas){
 
-uasort($coleccionPartidas, 'comparacionPerzonalizada');
+uasort($coleccionPartidas, 'compararPorJugadorYPalabra');
 print_r($coleccionPartidas);
 
 }
@@ -228,56 +229,14 @@ print_r($coleccionPartidas);
 
 /** 
  * Funcuon de comparacion perzonalizada */ 
-function comparacionPerzonalizada($a,$b){
-
-    return strcasecmp($a['nombre'], $b['palabra']);
-}
-
-
-
-
-/**
- * Obtiene una colección de partidas
- * @return string
- */
-
-function mostrarListadoPartidas()
-{
-    $partidas = [
-        "1" => [
-            "usuario" => "MATI TORRE GATO",
-            "palabra" => "MELON",
-            "intentos" => 3,
-            "estado" => "Perdida",
-            "puntaje" => 100,
-        ],
-        "2" => [
-            "usuario" => "MARTIN DEMICHELI",
-            "palabra" => "MELON",
-            "intentos" => 3,
-            "estado" => "Ganada",
-            "puntaje" => 10000,
-        ],
-        "3" => [
-            "usuario" => "EL GERMAN",
-            "palabra" => "MELON",
-            "intentos" => 3,
-            "estado" => "Ganada",
-            "puntaje" => 10000,
-        ],
-    ];
-    foreach ($partidas as $partida => $value) {
-        echo "Partida: $partida\n";
-        echo "Usuario: $value[usuario]\n";
-        echo "Palabra: $value[palabra]\n";
-        echo "Intentos: $value[intentos]\n";
-        echo "Estado: $value[estado]\n";
-        echo "Puntaje: $value[puntaje]\n";
-        echo "---------------------------------\n";
+// Función de comparación para ordenar por jugador y, en caso de empate, por palabra
+function compararPorJugadorYPalabra($a, $b) {
+    if ($a['jugador'] == $b['jugador']) {
+        return strcmp($a['palabraWordix'], $b['palabraWordix']);
     }
-return $partidas;
-
+    return strcmp($a['jugador'], $b['jugador']);
 }
+
 
 
 
@@ -330,26 +289,85 @@ do {
             break;
         case 3:
             //Mostrar una partida
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "============================================================================\n";
             echo "Ingrese numero de partida que desee ver: ";
             $numeroDePartida = trim(fgets(STDIN));
-            mostrarPartida($numeroDePartida);
+            echo "\n";
+            echo "\n";
 
+            mostrarPartida($numeroDePartida);
+            echo "============================================================================\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
             break;
         case 4:
             //Mostrar primera partida ganada
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "============================================================================\n";
             echo "Ingrese nombre del jugador: ";
             $nombreJugadorSeleccionado = trim(fgets(STDIN));
-            $partidas =  mostrarListadoPartidas();
+            $partidas = cargarPartidas();
             $i = retornaPrimerPartidaGanada($nombreJugadorSeleccionado, $partidas);
-            print_r ($partidas[$i]);
+   
+
+            if($i == -1){
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "============================================================================\n";
+                echo " NO TIENE PARTIDAS GANADAS \n";
+                echo "============================================================================\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+            }else{
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "============================================================================\n";
+                echo "Partida WORDIX ".$i." : palabra ".strtoupper($partidas[$i]['palabraWordix'])."\n";
+                echo "Jugador: ".$partidas[$i]['jugador']."\n";
+                echo "Puntaje: ".$partidas[$i]['puntaje']." puntos \n";
+                echo "Intento: Adivino la palabra en ".$partidas[$i]['intentos']." intentos \n";
+
+                echo "============================================================================\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+
+
+
+
+
+
+            }
             //...
             break;
         case 5:
+            echo "Ingrese nombre del jugador: ";
+            $nombreJugadorSeleccionado = trim(fgets(STDIN));
+            $partidas = cargarPartidas();
+            resumenJugador($partidas, $nombreJugadorSeleccionado);
             //Mostrar resumen de Jugador
             break;
         case 6:
-            //Mostrar listado de partidas ordenadas por jugador y por palabra
-            mostrarListadoPartidas();
+            //MUESTRA LAS PARTIDAS ORDENADAS POR JUGADOR Y PALABRA
+            $partidas = cargarPartidas();
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "======================= PARTIDAS ORDENADAS ALFABETICAMENTE =================\n";
+            ordenaColeccion($partidas);
+            echo "============================================================================\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
             break;
         case 7:
             $coleccionPalabras = cargarColeccionPalabras();
