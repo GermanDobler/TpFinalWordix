@@ -333,16 +333,6 @@ function esIntentoGanado($estructuraPalabraIntento)
 
     return $ganado;
 }
-/**Puntaje:
-Si el jugador no adivina la palabra en 6 intentos, su puntaje será 0.
-Si el jugador adivina la palabra en 6 o menos intentos, su puntaje se calcula:
-Si adivina en el primer intento gana 6 puntos
-Si adivina en el segundo intento gana 5 puntos
-Si adivina en el tercer intento gana 4 puntos
-Etc.
-Además cada letra del abecedario tendrá un puntaje: las vocales 1 pto, las consonantes anteriores a la “M” 
-(inclusive) son 2 ptos, y las consonantes posteriores a la “M” son 3 puntos. Por lo tanto, a los puntos del intento, 
-se le sumará la el valor de cada letra de la palabra Wordix adivinada.*/
 
 /**
  * Calcula el puntaje del jugador por intento
