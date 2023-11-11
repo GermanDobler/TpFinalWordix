@@ -27,7 +27,9 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ * Pide un numero entre $min y $max y si el numero ingresado esta entre esos margenes retorna el numero
+ * @param int $min, $max
+ * @return int 
  */
 function solicitarNumeroEntre($min, $max)
 {
@@ -331,15 +333,47 @@ function esIntentoGanado($estructuraPalabraIntento)
 
     return $ganado;
 }
+/**Puntaje:
+Si el jugador no adivina la palabra en 6 intentos, su puntaje será 0.
+Si el jugador adivina la palabra en 6 o menos intentos, su puntaje se calcula:
+Si adivina en el primer intento gana 6 puntos
+Si adivina en el segundo intento gana 5 puntos
+Si adivina en el tercer intento gana 4 puntos
+Etc.
+Además cada letra del abecedario tendrá un puntaje: las vocales 1 pto, las consonantes anteriores a la “M” 
+(inclusive) son 2 ptos, y las consonantes posteriores a la “M” son 3 puntos. Por lo tanto, a los puntos del intento, 
+se le sumará la el valor de cada letra de la palabra Wordix adivinada.*/
 
 /**
- * ****COMPLETAR***** documentación de la intefaz
+ * Calcula el puntaje del jugador por intento
+ * @param $numeroIntento
+ * @param $palabraIntento
  */
-function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales necesarios */
-{
+function obtenerPuntajeWordix($numeroIntento,$palabraIntento){
+    
+    $puntaje =7-$numeroIntento; //arranca el puntaje en 7 menos el numero de intento
 
-    /* ****COMPLETAR***** cuerpo de la función*/
-    return 0;
+    $arrayVocales = ["A","E","I","O","U"];//arreglo de vocales
+
+    $letrasPalabra = str_split($palabraIntento);//separa a la palabra por letras
+
+    foreach ($letrasPalabra as $letra) {
+
+        $letra = strtoupper($letra); // Convertir la letra a mayúscula
+    
+        if (in_array($letra, $arrayVocales)) {
+            $puntaje += 1; // Vocales valen 1 punto
+        } else {
+            if ($puntaje >= 'A' && $letra <= 'M') {
+                $puntaje += 2; // Consonantes hasta la M inclusive valen 2 puntos
+            } elseif ($letra >= 'N') {
+                $puntaje += 3; // Consonantes a partir de la N valen 3 puntos
+            }
+        }
+    
+    }
+
+    return $puntaje;
 }
 
 /**
