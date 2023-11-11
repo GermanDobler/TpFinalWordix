@@ -354,7 +354,7 @@ function obtenerPuntajeWordix($nroIntento,$palabraIntento){
         if (in_array($letra, $arrayVocales)) {
             $puntaje += 1; // Vocales valen 1 punto
         } else {
-            if ($puntaje >= 'A' && $letra <= 'M') {
+            if ($letra >= 'A' && $letra <= 'M') {
                 $puntaje += 2; // Consonantes hasta la M inclusive valen 2 puntos
             } elseif ($letra >= 'N') {
                 $puntaje += 3; // Consonantes a partir de la N valen 3 puntos

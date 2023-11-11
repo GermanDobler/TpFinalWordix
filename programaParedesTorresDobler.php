@@ -36,26 +36,31 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 //OPCION SWITCH 7
-$coleccionPalabras = cargarColeccionPalabras();
-//$palabraAAgregar = leerPalabra5Letras();
+
+
 /**
  * Agrega una palabra a la coleccion cargarColeccionPalabras()
- * @param $coleccionPalabras
- * @param $palabrasAAgregar
+ * @param array $coleccionPalabras
+ * @param string $palabrasAAgregar
  */
 //FUNCION 7
-/**function agregarPalabra($coleccionPalabras,$palabraAAgregar){
+function agregarPalabra($coleccionPalabras,$palabraAAgregar){
 
         //verificar si la palabra no esta dentro del arreglo
         if(!in_array($palabraAAgregar,$coleccionPalabras)){
-            
+            echo $palabraAAgregar.'\n';
+
             //agrega la palabra a la coleccion
-            array_push($coleccionPalabras);
+            array_push($coleccionPalabras,$palabraAAgregar);
+
+            print_r($coleccionPalabras);
+
+            echo "Palabra agregada!";
         }else {
             echo "Esa palabra ya se encuentra en la coleecion";
         }
-    }
-*/
+}
+
 
 //OPCION 3 SWITCH FUNCION 6
 /**
@@ -342,8 +347,9 @@ do {
             mostrarListadoPartidas();
             break;
         case 7:
-            //Agregar una palabra de 5 letras a Wordix
-            //agregarPalabra($coleccionPalabras,$palabraAAgregar);
+            $coleccionPalabras = cargarColeccionPalabras();
+            $palabraAAgregar = leerPalabra5Letras();
+            agregarPalabra($coleccionPalabras,$palabraAAgregar);
 
             break;
         case 8:
