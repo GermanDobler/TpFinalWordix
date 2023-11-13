@@ -28,12 +28,9 @@ function cargarColeccionPalabras()
         "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
         "LETRA", "MARZO", "LUNES", "MANGO", "NADAR"
-
-
-
     ];
 
-    return ($coleccionPalabras);
+    return $coleccionPalabras;
 }
 // 1ro = 6 , 2do = 5, 3ro = 4, 4to = 3, 5to= 2, 6to = 1
 //FUNCION 2
@@ -41,10 +38,10 @@ function cargarColeccionPalabras()
  * Obtiene una colección de partidas
  * @return array
  */
-$arrayPartidas = [];
-function cargarPartidas($nuevaPartida)
+
+function cargarPartidas()
 {
-    global $arrayPartidas;
+    $arrayPartidas = [];
     $arrayPartidas[0] = ["palabraWordix" => "QUESO", "jugador" => "majo", "intentos" => 0, "puntaje" => 0];
     $arrayPartidas[1] = ["palabraWordix" => "CASAS", "jugador" => "rudolf", "intentos" => 3, "puntaje" => 14];
     $arrayPartidas[2] = ["palabraWordix" => "QUESO", "jugador" => "pink2000", "intentos" => 6, "puntaje" => 10];
@@ -55,13 +52,14 @@ function cargarPartidas($nuevaPartida)
     $arrayPartidas[7] = ["palabraWordix" => "NADAR",  "jugador" => "nasus", "intentos" => 2,  "puntaje" => 15];
     $arrayPartidas[8] = ["palabraWordix" => "PIANO",  "jugador" => "pedro12", "intentos" => 4,   "puntaje" => 12];
     $arrayPartidas[9] = ["palabraWordix" => "LETRA",  "jugador" => "majo",   "intentos" => 4,   "puntaje" => 13];
-    if ($nuevaPartida != null) {
-        array_push($arrayPartidas, $nuevaPartida);
-    } else {
-        return $arrayPartidas;
-    }
+    
     return $arrayPartidas;
 }
+
+function agregarPartida($coleccionPartidas, $partida){
+    array_push($coleccionPartidas, $palabra);
+}
+    
 /**PUNTO 2 C
  * Genera un array del jugador 
  * @param vacio
@@ -207,24 +205,24 @@ function resumenJugador($coleccionPartidas, $nombreJugador)
                 $arrayJugador['victorias']++;
             }
             //asignar el intento a la partida que pertenece al jugador
-            switch ($arrayJugador['partidas']) {
+            switch ($partida['intentos']) {
                 case 1:
-                    $arrayJugador['intento1'] = $partida['intentos'];
+                    $arrayJugador['intento1']++;
                     break;
                 case 2:
-                    $arrayJugador['intento2'] = $partida['intentos'];
+                    $arrayJugador['intento2']++;
                     break;
                 case 3:
-                    $arrayJugador['intento3'] = $partida['intentos'];
+                    $arrayJugador['intento3']++;
                     break;
                 case 4:
-                    $arrayJugador['intento4'] = $partida['intentos'];
+                    $arrayJugador['intento4']++;
                     break;
                 case 5:
-                    $arrayJugador['intento5'] = $partida['intentos'];
+                    $arrayJugador['intento5']++;
                     break;
                 case 6:
-                    $arrayJugador['intento6'] = $partida['intentos'];
+                    $arrayJugador['intento6']++;
                     break;
             }
         }
@@ -290,6 +288,9 @@ function compararPorJugadorYPalabra($a, $b)
 
 
 //Inicialización de variables:
+$cantPalabras = count(cargarColeccionPalabras());
+$coleccionPalabras = cargarColeccionPalabras();
+$coleccionPartidas = cargarPartidas();
 
 
 //Proceso:
@@ -302,8 +303,6 @@ function compararPorJugadorYPalabra($a, $b)
 
 do {
     $opcion = seleccionarOpcion();
-    $cantPalabras = count(cargarColeccionPalabras());
-    $coleccionPalabras = cargarColeccionPalabras();
 
 
     switch ($opcion) {
@@ -316,7 +315,7 @@ do {
             if (($eleccion >= 0) && ($eleccion < $cantPalabras)) {
                 $palabraElegida = $coleccionPalabras[$eleccion];
                 $partida = jugarWordix($palabraElegida, strtolower($usuario));
-                cargarPartidas($partida);
+                agregarPartida($coleccionPartidas, $partida);
             } else {
                 echo "ERROR\n";
             }
@@ -328,7 +327,7 @@ do {
             $usuario = trim(fgets(STDIN));
             $palabraElegida = $coleccionPalabras[rand(0, $cantPalabras - 1)];
             $partida = jugarWordix($palabraElegida, strtolower($usuario));
-            cargarPartidas($partida);
+            agregarPartida($coleccionPartidas, $partida);
             break;
         case 3:
             //Mostrar una partida elegida
@@ -389,12 +388,12 @@ do {
             //Mostrar resumen de Jugador seleccionado
             echo "Ingrese nombre del jugador: ";
             $nombreJugadorSeleccionado = trim(fgets(STDIN));
-            $partidas = cargarPartidas(null);
+            $partidas = cargarPartidas();
             resumenJugador($partidas, $nombreJugadorSeleccionado);
             break;
         case 6:
             //MUESTRA LAS PARTIDAS ORDENADAS POR JUGADOR Y PALABRA
-            $partidas = cargarPartidas(null);
+            $partidas = cargarPartidas();
             echo "\n";
             echo "\n";
             echo "\n";
@@ -407,7 +406,6 @@ do {
             break;
         case 7:
             //Agrega una palabra a la coleccion de palabras
-            $coleccionPalabras = cargarColeccionPalabras();
             $palabraAAgregar = leerPalabra5Letras();
             agregarPalabra($coleccionPalabras, $palabraAAgregar);
 
