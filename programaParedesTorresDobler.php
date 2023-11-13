@@ -35,33 +35,56 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
-//OPCION SWITCH 7
-
-
+// 1ro = 6 , 2do = 5, 3ro = 4, 4to = 3, 5to= 2, 6to = 1
+//FUNCION 2
 /**
- * Agrega una palabra a la coleccion cargarColeccionPalabras()
- * @param array $coleccionPalabras
- * @param string $palabrasAAgregar
+ * Obtiene una colección de partidas
+ * @return array
  */
-//FUNCION 7
-function agregarPalabra($coleccionPalabras, $palabraAAgregar)
+$arrayPartidas = [];
+function cargarPartidas($nuevaPartida)
 {
-
-    //verificar si la palabra no esta dentro del arreglo
-    if (!in_array($palabraAAgregar, $coleccionPalabras)) {
-        echo $palabraAAgregar . '\n';
-
-        //agrega la palabra a la coleccion
-        array_push($coleccionPalabras, $palabraAAgregar);
-
-        print_r($coleccionPalabras);
-
-        echo "Palabra agregada!";
+    global $arrayPartidas;
+    $arrayPartidas[0] = ["palabraWordix" => "QUESO", "jugador" => "majo", "intentos" => 0, "puntaje" => 0];
+    $arrayPartidas[1] = ["palabraWordix" => "CASAS", "jugador" => "rudolf", "intentos" => 3, "puntaje" => 14];
+    $arrayPartidas[2] = ["palabraWordix" => "QUESO", "jugador" => "pink2000", "intentos" => 6, "puntaje" => 10];
+    $arrayPartidas[3] = ["palabraWordix" => "PERRO", "jugador" => "pedro12", "intentos" => 3, "puntaje" => 15];
+    $arrayPartidas[4] = ["palabraWordix" => "LETRA",  "jugador" => "nasus",  "intentos" => 4, "puntaje" => 13];
+    $arrayPartidas[5] = ["palabraWordix" => "MUJER",  "jugador" => "dog123", "intentos" => 4, "puntaje" => 12];
+    $arrayPartidas[6] = ["palabraWordix" => "CASAS",  "jugador" => "rudolf", "intentos" => 6, "puntaje" => 11];
+    $arrayPartidas[7] = ["palabraWordix" => "NADAR",  "jugador" => "nasus", "intentos" => 2,  "puntaje" => 15];
+    $arrayPartidas[8] = ["palabraWordix" => "PIANO",  "jugador" => "pedro12", "intentos" => 4,   "puntaje" => 12];
+    $arrayPartidas[9] = ["palabraWordix" => "LETRA",  "jugador" => "majo",   "intentos" => 4,   "puntaje" => 13];
+    if ($nuevaPartida != null) {
+        array_push($arrayPartidas, $nuevaPartida);
     } else {
-        echo "Esa palabra ya se encuentra en la coleecion";
+        return $arrayPartidas;
     }
+    return $arrayPartidas;
 }
+/**PUNTO 2 C
+ * Genera un array del jugador 
+ * @param vacio
+ * @return array
+ */
 
+ function generarArrayInicial()
+ {
+     $jugador = [
+         "jugador" => "",
+         "partidas" => 0,
+         "puntaje" => 0,
+         "victorias" => 0,
+         "intento1" => 0,
+         "intento2" => 0,
+         "intento3" => 0,
+         "intento4" => 0,
+         "intento5" => 0,
+         "intento6" => 0
+     ];
+ 
+     return $jugador;
+ }
 
 //OPCION 3 SWITCH FUNCION 6
 /**
@@ -85,6 +108,42 @@ function mostrarPartida($numeroDePartida)
         echo "Error, esa partida no se ecuentra";
     }
 }
+
+
+//OPCION SWITCH 7
+
+//FUNCION 7
+/**
+ * Agrega una palabra a la coleccion cargarColeccionPalabras()
+ * @param array $coleccionPalabras
+ * @param string $palabrasAAgregar
+ */
+
+function agregarPalabra($coleccionPalabras, $palabraAAgregar) {
+    // Verificar si la palabra no está dentro del arreglo
+    $palabraEncontrada = false;
+
+    foreach ($coleccionPalabras as $palabra) {
+        if ($palabra === $palabraAAgregar) {
+            $palabraEncontrada = true;
+        }
+    }
+
+    if (!$palabraEncontrada) {
+        
+        // Agrega la palabra a la colección
+        array_push($coleccionPalabras, $palabraAAgregar);
+        //Mostramos el arreglo con la palabra agregada
+        print_r($coleccionPalabras);
+
+        echo "Palabra agregada!";
+    } else {
+        echo "Esa palabra ya se encuentra en la colección";
+    }
+}
+
+
+
 // FUNCION 10
 /**
  * solicita el nombre del jugador. Se asegura que el nombre empieze con una letra y lo retorna en minuscula
@@ -104,60 +163,6 @@ function solicitarJugador()
 
     return $nombreJugador;
 }
-
-
-//FUNCION 2
-/**
- * Obtiene una colección de partidas
- * @return array
- */
-$arrayPartidas = [];
-function cargarPartidas($nuevaPartida)
-{
-    global $arrayPartidas;
-    $arrayPartidas[0] = ["palabraWordix" => "QUESO", "jugador" => "majo", "intentos" => 0, "puntaje" => 0];
-    $arrayPartidas[1] = ["palabraWordix" => "CASAS", "jugador" => "rudolf", "intentos" => 3, "puntaje" => 14];
-    $arrayPartidas[2] = ["palabraWordix" => "QUESO", "jugador" => "pink2000", "intentos" => 6, "puntaje" => 10];
-    $arrayPartidas[3] = ["palabraWordix" => "PERRO", "jugador" => "pedro12", "intentos" => 3, "puntaje" => 0];
-    $arrayPartidas[4] = ["palabraWordix" => "LETRA",  "jugador" => "nasus",  "intentos" => 4, "puntaje" => 20];
-    $arrayPartidas[5] = ["palabraWordix" => "MUJER",  "jugador" => "dog123", "intentos" => 4, "puntaje" => 12];
-    $arrayPartidas[6] = ["palabraWordix" => "CASAS",  "jugador" => "rudolf", "intentos" => 6, "puntaje" => 11];
-    $arrayPartidas[7] = ["palabraWordix" => "NADAR",  "jugador" => "nasus", "intentos" => 2,  "puntaje" => 10];
-    $arrayPartidas[8] = ["palabraWordix" => "PIANO",  "jugador" => "pedro12", "intentos" => 4,   "puntaje" => 0];
-    $arrayPartidas[9] = ["palabraWordix" => "LETRA",  "jugador" => "majo",   "intentos" => 4,   "puntaje" => 0];
-    if ($nuevaPartida != null) {
-        array_push($arrayPartidas, $nuevaPartida);
-    } else {
-        return $arrayPartidas;
-    }
-    return $arrayPartidas;
-}
-
-
-/**PUNTO 2 C
- * Genera un array del jugador 
- * @param vacio
- * @return array
- */
-
-function generarArrayInicial()
-{
-    $jugador = [
-        "jugador" => "",
-        "partidas" => 0,
-        "puntaje" => 0,
-        "victorias" => 0,
-        "intento1" => 0,
-        "intento2" => 0,
-        "intento3" => 0,
-        "intento4" => 0,
-        "intento5" => 0,
-        "intento6" => 0
-    ];
-
-    return $jugador;
-}
-
 
 /**
  * PUNTO 8
@@ -257,8 +262,10 @@ function ordenaColeccion($coleccionPartidas)
 
 
 /** 
- * Funcuon de comparacion perzonalizada */
-// Función de comparación para ordenar por jugador y, en caso de empate, por palabra
+ * Función de comparación personalizada para ordenar por jugador y, en caso de empate, por palabra
+ * @param string $a
+ * @param string $b
+*/
 function compararPorJugadorYPalabra($a, $b)
 {
     if ($a['jugador'] == $b['jugador']) {
@@ -275,7 +282,11 @@ function compararPorJugadorYPalabra($a, $b)
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
-//Declaración de variables:
+/**Declaración de variables:
+ * int $opcion ,$cantPalabras ,$eleccion , $numeroDePartida
+ * array $coleccionPalabras , $partida , $i, $partidas
+ * string $usuario, $palabraElegida ,$nombreJugadorSeleccionado,$palabraAAgregar
+ */
 
 
 //Inicialización de variables:
@@ -320,7 +331,7 @@ do {
             cargarPartidas($partida);
             break;
         case 3:
-            //Mostrar una partida
+            //Mostrar una partida elegida
             echo "\n";
             echo "\n";
             echo "\n";
@@ -337,7 +348,7 @@ do {
             echo "\n";
             break;
         case 4:
-            //Mostrar primera partida ganada
+            //Mostrar primera partida ganada de una jugador seleccionado
             echo "\n";
             echo "\n";
             echo "\n";
@@ -373,14 +384,13 @@ do {
                 echo "\n";
                 echo "\n";
             }
-            //...
             break;
         case 5:
+            //Mostrar resumen de Jugador seleccionado
             echo "Ingrese nombre del jugador: ";
             $nombreJugadorSeleccionado = trim(fgets(STDIN));
             $partidas = cargarPartidas(null);
             resumenJugador($partidas, $nombreJugadorSeleccionado);
-            //Mostrar resumen de Jugador
             break;
         case 6:
             //MUESTRA LAS PARTIDAS ORDENADAS POR JUGADOR Y PALABRA
@@ -396,13 +406,17 @@ do {
             echo "\n";
             break;
         case 7:
+            //Agrega una palabra a la coleccion de palabras
             $coleccionPalabras = cargarColeccionPalabras();
             $palabraAAgregar = leerPalabra5Letras();
             agregarPalabra($coleccionPalabras, $palabraAAgregar);
 
             break;
         case 8:
-            echo "Gracias por jugar a Wordix\n";
+            echo "============================================================================\n";
+            echo "\n";
+            echo "Gracias por jugar a Wordix!\n";
+            echo "\n";
             break;
         default:
             echo "Opción inválida\n";
