@@ -168,16 +168,20 @@ function solicitarJugador()
 
 function retornaPrimerPartidaGanada($nombreJugador, $coleccionPartida)
 {
+    $indice = -1;
     $contador = count($coleccionPartida);
-    print_r($contador);
+
+    //BUSCA EN EL ARRAY $coleccionPartida  el indice de la primer partida ganada con el nombre que pasa por parametro
     for ($i = 0; $i < $contador; $i++) {
         if ($coleccionPartida[$i]['jugador'] == $nombreJugador) {
             if ($coleccionPartida[$i]['puntaje'] > 0) {
-                return $i;
+                $indice = $i;
             }
         }
     }
-    return -1;
+
+    //SI NO ENCUENTRA NADA VA A RETORNAR -1
+    return $indice;
 }
 
 
@@ -192,9 +196,11 @@ function resumenJugador($coleccionPartidas, $nombreJugador)
 {
     $arrayJugador = generarArrayInicial();
 
-
+    //BUSCA EN EL ARRAY $coleccionPartida, la partida del jugador con el nombre pasado por parametro
     foreach ($coleccionPartidas as $partida) {
-        if ($partida['jugador'] == $nombreJugador) {
+        if ($partida['jugador'] === $nombreJugador) {
+
+            echo "PASO EL JUGADOR";
             $arrayJugador['jugador'] = $nombreJugador;
             $arrayJugador['partidas']++;
             $arrayJugador['puntaje'] += $partida['puntaje'];
@@ -224,20 +230,11 @@ function resumenJugador($coleccionPartidas, $nombreJugador)
             }
         }
     }
-    echo "============================================================================\n";
-    echo "Resumen del jugador: " . $nombreJugador . "\n";
-    echo "Partidas jugadas: " . $arrayJugador['partidas'] . "\n";
-    echo "Puntaje total: " . $arrayJugador['puntaje'] . "\n";
-    echo "Victorias: " . $arrayJugador['victorias'] . "\n";
-    echo "Porcentaje de victorias: " . ($arrayJugador['victorias'] / $arrayJugador['partidas']) * 100 . "%\n";
-    echo "Adivinadas: \n";
-    echo "Intento 1: " . $arrayJugador['intento1'] . "\n";
-    echo "Intento 2: " . $arrayJugador['intento2'] . "\n";
-    echo "Intento 3: " . $arrayJugador['intento3'] . "\n";
-    echo "Intento 4: " . $arrayJugador['intento4'] . "\n";
-    echo "Intento 5: " . $arrayJugador['intento5'] . "\n";
-    echo "Intento 6: " . $arrayJugador['intento6'] . "\n";
-    echo "============================================================================\n";
+
+    return $arrayJugador;
+
+
+
 }
 
 
@@ -250,6 +247,9 @@ function resumenJugador($coleccionPartidas, $nombreJugador)
 function ordenaColeccion($coleccionPartidas)
 {
 
+
+    //Utiliza la funcion nativa de PHP "USORT" para ordenar el array. A esta funcion le pasamos otra funcion perzonalizada 
+    //que hace que ordene el array por jugador y palabra
     uasort($coleccionPartidas, 'compararPorJugadorYPalabra');
     print_r($coleccionPartidas);
 }
@@ -277,8 +277,8 @@ function compararPorJugadorYPalabra($a, $b)
 /**************************************/
 
 /**Declaración de variables:
- * int $opcion ,$cantPalabras ,$eleccion , $numeroDePartida
- * array $coleccionPalabras , $partida , $i, $partidas
+ * int $opcion ,$eleccion , $numeroDePartida , $i
+ * array $coleccionPalabras , $partida , $partidas
  * string $usuario, $palabraElegida ,$nombreJugadorSeleccionado,$palabraAAgregar
  */
 
@@ -319,7 +319,7 @@ do {
             // Jugar al wordix con una palabra aleatoria
             echo "Ingrese su usuario: ";
             $usuario = trim(fgets(STDIN));
-            $palabraElegida = $coleccionPalabras[rand(0, $cantPalabras - 1)];
+            $palabraElegida = $coleccionPalabras[rand(0, count($coleccionPalabras) - 1)];
             $partida = jugarWordix($palabraElegida, strtolower($usuario));
             array_push($coleccionPartidas, $partida);
             break;
@@ -345,7 +345,6 @@ do {
             echo "\n";
             echo "\n";
             echo "\n";
-            echo "============================================================================\n";
             echo "Ingrese nombre del jugador: ";
             $nombreJugadorSeleccionado = trim(fgets(STDIN));
             $i = retornaPrimerPartidaGanada($nombreJugadorSeleccionado, $coleccionPartidas);
@@ -378,9 +377,66 @@ do {
             }
             break;
         case 5:
-            //Mostrar resumen de Jugador seleccionado
-            $nombreJugador = solicitarJugador();
-            resumenJugador($coleccionPartidas, $nombreJugador);
+        
+        //Mostrar resumen de Jugador seleccionado
+        echo"=====================LISTA DE JUGADORES=======================\n ";
+        
+        foreach($coleccionPartidas as $coleccion){
+
+            echo $coleccion['jugador']."\n";
+         }
+
+         echo "==========================ELIGA UNO (ESCRIBA SU NOMBRE) =================\n";
+            
+          $nombreJugador = solicitarJugador();
+          $arrayJugador =  resumenJugador($coleccionPartidas, $nombreJugador);
+    
+          if($arrayJugador['jugador'] !== ""){
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+
+                echo "============================================================================\n";
+                echo "Resumen del jugador: " . strtoupper($nombreJugador). "\n";
+                echo "Partidas jugadas: " . $arrayJugador['partidas'] . "\n";
+                echo "Puntaje total: " . $arrayJugador['puntaje'] . "\n";
+                echo "Victorias: " . $arrayJugador['victorias'] . "\n";
+                echo "Porcentaje de victorias: " . ($arrayJugador['victorias'] / $arrayJugador['partidas']) * 100 . "%\n";
+                echo "Adivinadas: \n";
+                echo "Intento 1: " . $arrayJugador['intento1'] . "\n";
+                echo "Intento 2: " . $arrayJugador['intento2'] . "\n";
+                echo "Intento 3: " . $arrayJugador['intento3'] . "\n";
+                echo "Intento 4: " . $arrayJugador['intento4'] . "\n";
+                echo "Intento 5: " . $arrayJugador['intento5'] . "\n";
+                echo "Intento 6: " . $arrayJugador['intento6'] . "\n";
+                echo "============================================================================\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+          }else{
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+
+            echo "============================================================================\n";
+            echo "NO HAY PARTIDA PARA EL JUGADOR.". strtoupper($nombreJugador).". \n";
+            echo "============================================================================\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+            echo "\n";
+          }
             break;
         case 6:
             //MUESTRA LAS PARTIDAS ORDENADAS POR JUGADOR Y PALABRA
