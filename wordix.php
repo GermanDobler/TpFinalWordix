@@ -429,7 +429,7 @@ function seleccionarOpcion(){
         echo "5) Mostrar resumen de Jugador\n";
         echo "6) Mostrar listado de partidas ordenadas por jugador y por palabra\n";
         echo "7) Agregar una palabra de 5 letras a Wordix\n";
-        echo "8) salir\n";
+        echo "8) Salir\n";
 
         echo "Ingrese su opcion deseada: ";
         $opcion = trim(fgets(STDIN));
