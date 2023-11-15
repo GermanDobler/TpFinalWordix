@@ -351,15 +351,15 @@ function obtenerPuntajeWordix($nroIntento,$palabraIntento){
 
     foreach ($letrasPalabra as $letra) {
 
-        $letra = strtoupper($letra); // Convertir la letra a mayúscula
+        $letra = strtoupper($letra); // convertir la letra a mayuscula
     
         if (in_array($letra, $arrayVocales)) {
-            $puntaje += 1; // Vocales valen 1 punto
+            $puntaje += 1; // vocales valen 1 punto
         } else {
             if ($letra >= 'A' && $letra <= 'M') {
-                $puntaje += 2; // Consonantes hasta la M inclusive valen 2 puntos
+                $puntaje += 2; // consonantes hasta la M inclusive valen 2 puntos
             } elseif ($letra >= 'N') {
-                $puntaje += 3; // Consonantes a partir de la N valen 3 puntos
+                $puntaje += 3; // consonantes a partir de la N valen 3 puntos
             }
         }
     

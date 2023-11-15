@@ -109,11 +109,12 @@ function mostrarPartida($numeroDePartida, $partidas)
  * Agrega una palabra a la coleccion cargarColeccionPalabras()
  * @param array $coleccionPalabras
  * @param string $palabrasAAgregar
+ * @return boolean
  */
 
 function agregarPalabra($coleccionPalabras, $palabraAAgregar)
 {
-    // Verificar si la palabra no está dentro del arreglo
+    // Verificar si la palabra  esta dentro del arreglo
     $palabraEncontrada = false;
 
     foreach ($coleccionPalabras as $palabra) {
@@ -190,7 +191,7 @@ function resumenJugador($coleccionPartidas, $nombreJugador)
     foreach ($coleccionPartidas as $partida) {
         if ($partida['jugador'] === $nombreJugador) {
 
-            echo "PASO EL JUGADOR";
+            
             $arrayJugador['jugador'] = $nombreJugador;
             $arrayJugador['partidas']++;
             $arrayJugador['puntaje'] += $partida['puntaje'];
@@ -448,9 +449,21 @@ do {
             if (!$existe) {
 
                 array_push($coleccionPalabras, $palabraAgregar);
-                print_r($coleccionPalabras);
+                foreach ($coleccionPalabras as $indice => $palabra) {
+                    echo $indice ." ". $palabra."\n";
+                    
+                }
+                echo "\n";
+                echo "\n";
+                echo "Palabra agregada!";
+                echo "\n";
+                echo "\n";
             } else {
-                echo "Ya existe esa palabra";
+                echo "\n";
+                echo "\n";
+                echo "Esa palabra ya se encuentra en la colección";
+                echo "\n";
+                echo "\n";
             }
 
             break;
