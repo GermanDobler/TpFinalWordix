@@ -95,9 +95,8 @@ function mostrarPartida($numeroDePartida, $partidas)
         echo "Palabra: " . $partida["palabraWordix"] . "\n";
         echo "Intentos: " . $partida["intentos"] . "\n";
         echo "Puntaje: " . $partida["puntaje"] . "\n";
-        echo "---------------------------------\n";
     } else {
-        echo "Error, esa partida no se ecuentra";
+        echo "Error, esa partida no se ecuentra\n";
     }
 }
 
@@ -139,11 +138,27 @@ function solicitarJugador()
 {
     echo "Ingrese nombre jugador: ";
     $nombreJugador = trim(fgets(STDIN));
-    //verifica que el nombre empieze con una letra
-    if (ctype_alpha($nombreJugador[0])) {
-        //si el nombre inicia con letra, lo transforma todo a minusculas
-        $nombreJugador = strtolower($nombreJugador);
+
+    while (($nombreJugador === "") || ($nombreJugador === null)) {
+        echo "Debe ingresar algo: ";
+        $nombreJugador = trim(fgets(STDIN));
     }
+
+
+    while (!ctype_alpha($nombreJugador[0])) {
+
+
+        echo "Debe ingresar un nombre: ";
+        $nombreJugador = trim(fgets(STDIN));
+        if ($nombreJugador === "" || $nombreJugador === null) {
+            $nombreJugador = "1";
+        }
+    }
+
+    // //verifica que el nombre empieze con una letra
+
+
+    $nombreJugador = strtolower($nombreJugador);
 
     return $nombreJugador;
 }
@@ -159,12 +174,13 @@ function solicitarJugador()
 
 function retornaPrimerPartidaGanada($nombreJugador, $coleccionPartida)
 {
-    $indice = -1;
+    $indice = 0;
     $contador = count($coleccionPartida);
 
     //BUSCA EN EL ARRAY $coleccionPartida  el indice de la primer partida ganada con el nombre que pasa por parametro
     for ($i = 0; $i < $contador; $i++) {
         if ($coleccionPartida[$i]['jugador'] == $nombreJugador) {
+            $indice = 2;
             if ($coleccionPartida[$i]['puntaje'] > 0) {
                 $indice = $i;
             }
@@ -191,7 +207,7 @@ function resumenJugador($coleccionPartidas, $nombreJugador)
     foreach ($coleccionPartidas as $partida) {
         if ($partida['jugador'] === $nombreJugador) {
 
-            
+
             $arrayJugador['jugador'] = $nombreJugador;
             $arrayJugador['partidas']++;
             $arrayJugador['puntaje'] += $partida['puntaje'];
@@ -250,10 +266,13 @@ function ordenaColeccion($coleccionPartidas)
  */
 function compararPorJugadorYPalabra($a, $b)
 {
+    $resultado = [];
     if ($a['jugador'] == $b['jugador']) {
-        return strcmp($a['palabraWordix'], $b['palabraWordix']);
+        $resultado = strcmp($a['palabraWordix'], $b['palabraWordix']);
+    } else {
+        $resultado = strcmp($a['jugador'], $b['jugador']);
     }
-    return strcmp($a['jugador'], $b['jugador']);
+    return $resultado;
 }
 
 
@@ -289,14 +308,12 @@ do {
 
     switch ($opcion) {
         case 1:
-            //Jugar al wordix con una palabra elegida
-            echo "Ingrese su usuario: ";
-            $usuario = trim(fgets(STDIN));
+            $usuario = solicitarJugador();
             echo "Ingrese el numero de palabra para jugar(entre 1 y " . count($coleccionPalabras) . "): ";
             $eleccion = trim(fgets(STDIN));
             if (is_numeric($eleccion)) {
-                if (($eleccion-1 >= 0) && ($eleccion-1  < count($coleccionPalabras))) {
-                    $palabraElegida = $coleccionPalabras[$eleccion-1];
+                if (($eleccion - 1 >= 0) && ($eleccion - 1  < count($coleccionPalabras))) {
+                    $palabraElegida = $coleccionPalabras[$eleccion - 1];
                     $partida = jugarWordix($palabraElegida, strtolower($usuario));
                     array_push($coleccionPartidas, $partida);
                 } else {
@@ -308,8 +325,7 @@ do {
             break;
         case 2:
             // Jugar al wordix con una palabra aleatoria
-            echo "Ingrese su usuario: ";
-            $usuario = trim(fgets(STDIN));
+            $usuario = solicitarJugador();
             $palabraElegida = $coleccionPalabras[rand(0, count($coleccionPalabras) - 1)];
             $partida = jugarWordix($palabraElegida, strtolower($usuario));
             array_push($coleccionPartidas, $partida);
@@ -341,12 +357,22 @@ do {
             $i = retornaPrimerPartidaGanada($nombreJugadorSeleccionado, $coleccionPartidas);
 
 
-            if ($i == -1) {
+            if ($i == 2) {
                 echo "\n";
                 echo "\n";
                 echo "\n";
                 echo "============================================================================\n";
                 echo " NO TIENE PARTIDAS GANADAS \n";
+                echo "============================================================================\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+            } else if ($i == 0) {
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "============================================================================\n";
+                echo " NO EXISTE EL JUGADOR " . strtoupper($nombreJugadorSeleccionado) . " \n";
                 echo "============================================================================\n";
                 echo "\n";
                 echo "\n";
@@ -370,14 +396,22 @@ do {
         case 5:
 
             //Mostrar resumen de Jugador seleccionado
-            echo "=====================LISTA DE JUGADORES=======================\n ";
+            // echo "=====================LISTA DE JUGADORES=======================\n ";
+                
+            // $jugador = "";
+            // array_reduce()
+            // foreach ($coleccionPartidas as $coleccion) {
+                
+                
+            //     if($jugador != $coleccion['jugador']){
+            //         echo $coleccion['jugador'] . "\n";
+            //     }
+            //     $jugador = $coleccion['jugador'];
 
-            foreach ($coleccionPartidas as $coleccion) {
+                
+            // }
 
-                echo $coleccion['jugador'] . "\n";
-            }
-
-            echo "==========================ELIGA UNO (ESCRIBA SU NOMBRE) =================\n";
+            echo "==========================ESCRIBA NOMBRE DE JUGADOR=================\n";
 
             $nombreJugador = solicitarJugador();
             $arrayJugador =  resumenJugador($coleccionPartidas, $nombreJugador);
@@ -419,7 +453,7 @@ do {
                 echo "\n";
 
                 echo "============================================================================\n";
-                echo "NO HAY PARTIDA PARA EL JUGADOR." . strtoupper($nombreJugador) . ". \n";
+                echo "NO HAY PARTIDA PARA EL JUGADOR " . strtoupper($nombreJugador) . " \n";
                 echo "============================================================================\n";
                 echo "\n";
                 echo "\n";
@@ -441,6 +475,7 @@ do {
             echo "\n";
             echo "\n";
             break;
+
         case 7:
             //Agrega una palabra a la coleccion de palabras
             $palabraAgregar = leerPalabra5Letras();
@@ -449,13 +484,21 @@ do {
             if (!$existe) {
 
                 array_push($coleccionPalabras, $palabraAgregar);
+
+
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "\n";
+                echo "==============================!PALABRA AGREGADA!==================================\n";
+
                 foreach ($coleccionPalabras as $indice => $palabra) {
-                    echo $indice ." ". $palabra."\n";
-                    
+                    echo $indice . " " . $palabra . "\n";
                 }
+                echo "================================================================\n";
+
                 echo "\n";
                 echo "\n";
-                echo "Palabra agregada!";
                 echo "\n";
                 echo "\n";
             } else {
