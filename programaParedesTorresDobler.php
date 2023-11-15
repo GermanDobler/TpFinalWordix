@@ -122,17 +122,7 @@ function agregarPalabra($coleccionPalabras, $palabraAAgregar)
         }
     }
 
-    if (!$palabraEncontrada) {
-
-        // Agrega la palabra a la colección
-        array_push($coleccionPalabras, $palabraAAgregar);
-        //Mostramos el arreglo con la palabra agregada
-        print_r($coleccionPalabras);
-
-        echo "Palabra agregada!";
-    } else {
-        echo "Esa palabra ya se encuentra en la colección";
-    }
+    return $palabraEncontrada;
 }
 
 
@@ -306,6 +296,7 @@ do {
             $usuario = trim(fgets(STDIN));
             echo "Ingrese el numero de palabra para jugar(entre 1 y " . count($coleccionPalabras) . "): ";
             $eleccion = trim(fgets(STDIN)) - 1;
+            
             if (($eleccion >= 0) && ($eleccion < count($coleccionPalabras))) {
                 $palabraElegida = $coleccionPalabras[$eleccion];
                 $partida = jugarWordix($palabraElegida, strtolower($usuario));
@@ -453,8 +444,17 @@ do {
         case 7:
             //Agrega una palabra a la coleccion de palabras
             $palabraAgregar = leerPalabra5Letras();
-            array_push($coleccionPalabras, $palabraAgregar);
-            print_r($coleccionPalabras);
+            $existe = agregarPalabra($coleccionPalabras, $palabraAgregar);
+
+            if(!$existe){
+
+                array_push($coleccionPalabras, $palabraAgregar);
+                print_r($coleccionPalabras);
+
+            }else{
+                echo"Ya existe esa palabra";
+            }
+         
             break;
         case 8:
             echo "============================================================================\n";
