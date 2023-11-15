@@ -337,8 +337,9 @@ function esIntentoGanado($estructuraPalabraIntento)
 
 /**
  * Calcula el puntaje del jugador por intento
- * @param $numeroIntento
- * @param $palabraIntento
+ * @param int $numeroIntento
+ * @param string $palabraIntento
+ * @return int
  */
 function obtenerPuntajeWordix($nroIntento,$palabraIntento){
     
@@ -416,7 +417,10 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     return $partida;
 }
-
+/**
+ * Menu de opciones para jugar
+ * @return int
+ */
 
 function seleccionarOpcion(){
     do {
@@ -429,7 +433,7 @@ function seleccionarOpcion(){
         echo "5) Mostrar resumen de Jugador\n";
         echo "6) Mostrar listado de partidas ordenadas por jugador y por palabra\n";
         echo "7) Agregar una palabra de 5 letras a Wordix\n";
-        echo "8) salir\n";
+        echo "8) Salir\n";
 
         echo "Ingrese su opcion deseada: ";
         $opcion = trim(fgets(STDIN));
