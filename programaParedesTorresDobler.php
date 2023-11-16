@@ -314,8 +314,25 @@ do {
             if (is_numeric($eleccion)) {
                 if (($eleccion - 1 >= 0) && ($eleccion - 1  < count($coleccionPalabras))) {
                     $palabraElegida = $coleccionPalabras[$eleccion - 1];
-                    $partida = jugarWordix($palabraElegida, strtolower($usuario));
-                    array_push($coleccionPartidas, $partida);
+                    $jugo=false;
+                    foreach($coleccionPartidas as $partida){
+                        if ($partida["jugador"] === $usuario && $partida["palabraWordix"] === $palabraElegida) {
+                            $jugo = true;
+                            echo "============================================================================\n";
+                            echo "\n";
+                            echo "\n";
+                            echo "Esa palabra ya fue jugada por $usuario\n";
+                            echo "\n";
+                            echo "\n";
+                            echo "============================================================================\n";
+                    }
+                } 
+                    if(!$jugo){
+
+                        $partida = jugarWordix($palabraElegida, strtolower($usuario));
+                        array_push($coleccionPartidas, $partida);
+
+                    }
                 } else {
                     echo "Ingrese una opción correcta\n";
                 }
@@ -327,8 +344,25 @@ do {
             // Jugar al wordix con una palabra aleatoria
             $usuario = solicitarJugador();
             $palabraElegida = $coleccionPalabras[rand(0, count($coleccionPalabras) - 1)];
-            $partida = jugarWordix($palabraElegida, strtolower($usuario));
-            array_push($coleccionPartidas, $partida);
+            $jugo=false;
+                    foreach($coleccionPartidas as $partida){
+                        if ($partida["jugador"] === $usuario && $partida["palabraWordix"] === $palabraElegida) {
+                            $jugo = true;
+                            echo "============================================================================\n";
+                            echo "\n";
+                            echo "\n";
+                            echo "Esa palabra ya fue jugada por $usuario\n";
+                            echo "\n";
+                            echo "\n";
+                            echo "============================================================================\n";
+                    }
+                } 
+                    if(!$jugo){
+
+                        $partida = jugarWordix($palabraElegida, strtolower($usuario));
+                        array_push($coleccionPartidas, $partida);
+
+                    }
             break;
         case 3:
             //Mostrar una partida elegida
