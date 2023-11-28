@@ -48,7 +48,7 @@ function cargarColeccionPartidas()
     $arrayPartidas[3] = ["palabraWordix" => "PERRO", "jugador" => "pedro12", "intentos" => 3, "puntaje" => 15];
     $arrayPartidas[4] = ["palabraWordix" => "LETRA",  "jugador" => "nasus",  "intentos" => 4, "puntaje" => 13];
     $arrayPartidas[5] = ["palabraWordix" => "MUJER",  "jugador" => "dog123", "intentos" => 4, "puntaje" => 12];
-    $arrayPartidas[6] = ["palabraWordix" => "CASAS",  "jugador" => "rudolf", "intentos" => 6, "puntaje" => 11];
+    $arrayPartidas[6] = ["palabraWordix" => "TINTO",  "jugador" => "rudolf", "intentos" => 6, "puntaje" => 12];
     $arrayPartidas[7] = ["palabraWordix" => "NADAR",  "jugador" => "nasus", "intentos" => 2,  "puntaje" => 15];
     $arrayPartidas[8] = ["palabraWordix" => "PIANO",  "jugador" => "pedro12", "intentos" => 4,   "puntaje" => 12];
     $arrayPartidas[9] = ["palabraWordix" => "LETRA",  "jugador" => "majo",   "intentos" => 4,   "puntaje" => 13];
@@ -175,22 +175,24 @@ function solicitarJugador()
 function retornaPrimerPartidaGanada($nombreJugador, $coleccionPartida)
 {
     $indice = 0;
+    $esPrimera	= false;
+    $i = 0;
     $contador = count($coleccionPartida);
+    
 
-    //BUSCA EN EL ARRAY $coleccionPartida  el indice de la primer partida ganada con el nombre que pasa por parametro
-    for ($i = 0; $i < $contador; $i++) {
-        if ($coleccionPartida[$i]['jugador'] == $nombreJugador) {
-            $indice = 2;
+    while (!$esPrimera&&$i<$contador){
+        if ($coleccionPartida[$i]['jugador'] == $nombreJugador){
             if ($coleccionPartida[$i]['puntaje'] > 0) {
                 $indice = $i;
-            }
+                $esPrimera = true;
         }
     }
 
-    //SI NO ENCUENTRA NADA VA A RETORNAR -1
-    return $indice;
-}
+    $i++;
 
+   } 
+   return $indice;
+}
 
 /**PUNTO 9
  * Obtiene el Resumen del jugador
